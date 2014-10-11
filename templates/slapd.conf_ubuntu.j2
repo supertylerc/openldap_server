@@ -14,28 +14,28 @@ moduleload      back_bdb.la
 
 access to *
                 by self write
-                by dn.base="cn=Manager,dc={{ openldap_server_domain_name.split('.')[0] }},dc={{ openldap_server_domain_name.split('.')[1] }}" write
+                by dn.base="cn=Manager,dc={{ openldap.domain_name.split('.')[0] }},dc={{ openldap.domain_name.split('.')[1] }}" write
                 by * read
 access to attrs=userPassword
                 by self write
                 by anonymous auth
-                by dn.base="cn=Manager,dc={{ openldap_server_domain_name.split('.')[0] }},dc={{ openldap_server_domain_name.split('.')[1] }}" write
+                by dn.base="cn=Manager,dc={{ openldap.domain_name.split('.')[0] }},dc={{ openldap.domain_name.split('.')[1] }}" write
                 by * none
 access to attrs=shadowLastChange
                 by self write
                 by * read
 
 database        bdb
-suffix          "dc={{ openldap_server_domain_name.split('.')[0] }},dc={{ openldap_server_domain_name.split('.')[1] }}"
-rootdn          "cn=Manager,dc={{ openldap_server_domain_name.split('.')[0] }},dc={{ openldap_server_domain_name.split('.')[1] }}"
+suffix          "dc={{ openldap.domain_name.split('.')[0] }},dc={{ openldap.domain_name.split('.')[1] }}"
+rootdn          "cn=Manager,dc={{ openldap.domain_name.split('.')[0] }},dc={{ openldap.domain_name.split('.')[1] }}"
 rootpw          {{ root_password.stdout }}
 #This directory has to be created and would contain the ldap database.
-directory       /var/lib/ldap/{{ openldap_server_domain_name }}/
+directory       /var/lib/ldap/{{ openldap.domain_name }}/
 index objectClass                       eq,pres
 index ou,cn,mail,surname,givenname      eq,pres,sub
 index uidNumber,gidNumber,loginShell    eq,pres
 index uid,memberUid                     eq,pres,sub
 index nisMapName,nisMapEntry            eq,pres,sub
 #TLSCACertificateFile /etc/ldap/certs/cacert.pem
-TLSCertificateFile /etc/ldap/certs/cert.crt
-TLSCertificateKeyFile /etc/ldap/certs/my.key
+TLSCertificateFile /etc/ldap/certs/ldap.crt
+TLSCertificateKeyFile /etc/ldap/certs/ldap.key
