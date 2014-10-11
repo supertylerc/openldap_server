@@ -2,17 +2,17 @@
 
 - name: Create LDAP Database Directory
   file:
-    path=/var/lib/ldap/{{ openldap.domain_name }}/
+    path=/var/lib/ldap/{{ openldap.domain_name.fqdn }}/
     state=directory
-    owner={{ openldap_server_user }}
-    group={{ openldap_server_user }}
+    owner={{ openldap.user }}
+    group={{ openldap.user }}
 
 - name: Create LDAP Certificate Directory
   file:
     path={{ openldap.path }}/certs/
     state=directory
-    owner={{ openldap_server_user }}
-    group={{ openldap_server_user }}
+    owner={{ openldap.user }}
+    group={{ openldap.user }}
 
 - name: Generate SSL Private Key
   shell:
@@ -66,5 +66,5 @@
 
 - name: Add Base Domain
   shell:
-    ldapadd -x -D "cn=Manager,dc={{ openldap.domain_name.split('.')[0] }},dc={{ openldap.domain_name.split('.')[1] }}" -w {{ openldap.password }} -f /tmp/domain.ldif && touch {{ openldap.path }}/rootdn_created
+    ldapadd -x -D "cn=Manager,dc={{ openldap.domain_name.domain }},dc={{ openldap.domain_name.tld }}" -w {{ openldap.password }} -f /tmp/domain.ldif && touch {{ openldap.path }}/rootdn_created
     creates={{ openldap.path }}/rootdn_created

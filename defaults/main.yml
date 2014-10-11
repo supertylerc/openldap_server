@@ -1,14 +1,17 @@
 ---
 
 conf:
-  # Domain Prefix for LDAP
-  domain_name: example.com
+  # Domain for LDAP
+  domain_name:
+    fqdn: example.com
+    tld: com
+    domain: example
   # Admin Password
   password: passme
   # SSL Parameters
   ssl:
-    country: "US"
-    state: "California"
-    location: "San Mateo"
-    organization: "NetEng"
+    country: US
+    state: California
+    location: San Mateo
+    organization: NetEng
     enabled: true
